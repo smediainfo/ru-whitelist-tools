@@ -8,7 +8,7 @@
 
 $ErrorActionPreference = 'SilentlyContinue'
 
-# Config — multiple SNIs tried in order (first that wins is reported)
+# Config - multiple SNIs tried in order (first that wins is reported)
 $snis     = @('max.ru', 'vk.com', 'gosuslugi.ru', 'yandex.ru')
 $parallel = 30
 $timeout  = 4000   # ms
@@ -44,11 +44,11 @@ try {
     Write-Host "Your outgoing IP: $myip (via yandex.ru)"
     Write-Host ""
 } catch {
-    Write-Host "Your outgoing IP: UNKNOWN (yandex.ru not reachable — operator might block ALL TLS)"
+    Write-Host "Your outgoing IP: UNKNOWN (yandex.ru not reachable - operator might block ALL TLS)"
     Write-Host ""
 }
 
-# The worker script block — tries each SNI in order, returns first success
+# The worker script block - tries each SNI in order, returns first success
 $workerScript = {
     param($ip, $snis, $timeout)
     foreach ($sni in $snis) {
@@ -138,7 +138,7 @@ foreach ($prefix in $subnets) {
     $count = 0
     foreach ($job in $jobs) {
         if ($job.IP -like "$prefix.*") {
-            # already disposed, can't check directly — rely on tracking above
+            # already disposed, can't check directly - rely on tracking above
         }
     }
 }
