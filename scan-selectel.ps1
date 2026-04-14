@@ -42,13 +42,15 @@ foreach ($prefix in $subnets) {
 Write-Host "Total IPs to check: $($ips.Count)"
 Write-Host ""
 
-# Show outgoing IP
+# Show outgoing IP via yandex.ru (in TSPU whitelist on all RU mobile operators)
 try {
-    $myip = (Invoke-WebRequest 'https://api.ipify.org' -UseBasicParsing -TimeoutSec 5).Content
-    Write-Host "Your outgoing IP: $myip"
+    $resp = (Invoke-WebRequest 'https://yandex.ru/internet/api/v0/ip' -UseBasicParsing -TimeoutSec 5).Content
+    # Endpoint returns a plain JSON string like: "38.180.69.116"
+    $myip = $resp -replace '"', ''
+    Write-Host "Your outgoing IP: $myip (via yandex.ru)"
     Write-Host ""
 } catch {
-    Write-Host "Your outgoing IP: UNKNOWN (api.ipify.org not reachable)"
+    Write-Host "Your outgoing IP: UNKNOWN (yandex.ru not reachable — operator might block ALL TLS)"
     Write-Host ""
 }
 
